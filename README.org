@@ -1,0 +1,23 @@
+#+TITLE: spacemacs-versions
+
+#+begin_verse
+Reproducing Spacemacs bugs by running a given Spacemacs/Emacs/Linux version.
+#+end_verse
+
+* Table of content                                                    :TOC@2:
+ - [[#presentation][Presentation]]
+ - [[#installation][Installation]]
+   - [[#requirements][Requirements]]
+
+* Presentation
+`spacemacs-versions` allows to run a given versions of spacemacs, with the
+specified emacs version, on the choosen linux distribution. Its main goal is to
+allow to reproduce bugs.
+
+* Installation
+
+** Requirements
+To use this software, you will need:
+- [[https://www.gnu.org/software/make/][GNU Make]]
+- [[https://www.python.org/][python 3]]
+- [[https://www.docker.com/][docker]]
