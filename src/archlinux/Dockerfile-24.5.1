@@ -1,0 +1,38 @@
+FROM l3iggs/archlinux:latest
+MAINTAINER Fabien Dubosson <fabien.dubosson@gmail.com>
+
+# Set locale
+RUN locale-gen en_US.UTF-8  
+ENV LANG en_US.UTF-8  
+ENV LANGUAGE en_US:en  
+ENV LC_ALL en_US.UTF-8  
+
+# Create `emacs` user
+RUN useradd -ms /bin/bash emacs
+ENV HOME /home/emacs
+
+# Needed by `exec-path-from-shell`
+ENV SHELL /bin/bash
+
+# Update the system
+RUN pacman -Syyu --noconfirm
+
+# Install needed packages
+RUN pacman -S --noconfirm \
+    git \
+    wget \
+    xorg-server
+
+# Install emacs
+ENV EMACS_VERSION 24.5-2
+RUN wget http://ala.seblu.net/packages/e/emacs/emacs-$EMACS_VERSION-x86_64.pkg.tar.xz{,.sig} && \
+    pacman -U --noconfirm emacs-$EMACS_VERSION-x86_64.pkg.tar.xz && \
+    rm emacs-$EMACS_VERSION-x86_64.pkg.tar.xz{,.sig}
+
+# Cleanup
+RUN rm -rf /var/cache/pacman /var/lib/pacman
+
+USER emacs
+WORKDIR /home/emacs
+
+ENTRYPOINT ["emacs"]
